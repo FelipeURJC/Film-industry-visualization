@@ -1,59 +1,18 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Salas de Cine en los Municipios de España</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
     <link rel="shortcut icon" href="ico.ico" />
-    <style>
-      html, body, #map {
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-    </style>
-
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="style.css" >
   </head>
+
   <body>
- 
-    <div id="map" >
-
-    <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-
-    <script>
-      function main() { <!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
-        cartodb.createVis('map', 'https://carlos10.cartodb.com/api/v2/viz/1c7e47e6-6612-11e5-a874-0ec80481e721/viz.json', {
-            shareable: true,
-            title: true,
-            description: true,
-            search: true,
-            tiles_loader: true,
-            center_lat: 37,
-            center_lon: 0,
-            zoom: 2
-        })
-        .done(function(vis, layers) {
-          // layer 0 is the base layer, layer 1 is cartodb layer
-          // setInteraction is disabled by default
-          layers[1].setInteraction(true);
-          layers[1].on('featureOver', function(e, latlng, pos, data) {
-            cartodb.log.log(e, latlng, pos, data);
-          });
-          // you can get the native map to work with it
-          var map = vis.getNativeMap();
-          // now, perform any operations you need
-           map.setZoom(5);
-
-          // map.panTo([50.5, 30.5]);
-        })
-        .error(function(err) {
-          console.log(err);
-        });
-      }
-      window.onload = main;
-    </script>
-    </div>
+    <div id = "map"> </div>
   </body>
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"> </script>
+  <script type="text/javascript" charset="utf-8" src="javascript.js"></script>
 </html>
