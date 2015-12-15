@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Información pública del cine en España</title>
+    <title>Salas de Cine en los Municipios de España</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="ico.ico" />
@@ -12,36 +12,26 @@
         margin: 0;
       }
     </style>
-    <!-- Pendiente de organizar los Scripts en un fichero -->
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript">
-    	$(document).ready(function(){
-    		$("#primerMenu").click(function(){
-    			$("#map").show();
-    			return false;
-    		});
-
-    	});
-    </script>
+	
     <script>
-    
-        function cargaMapa(){//Prueba creacion de capa dada una consulta SQL -- No operativo
-         layer.createSubLayer({
-       /*  sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, codnut1, codnut2, codnut3, country, recaudacion, inspireid, nameunit, natcode,natlevel FROM ign_spanish_adm2_provinces_copy",
-         cartocss: '#ign_spanish_adm2_provinces_copy  [recaudacion>100000000] {   polygon-fill: #229A00;}'
-         }); */
-  	     layer.show();//Mostramos la capa creada 
-  	     layer.setOpacity(0.9);//Seteamos la opacidad de la capa
-      }
-      
+	window.onload = function () { <!--Funcion que oculta los contenedores de cada mapa al cargar la página
+		$("#mapaEspectadores").hide();
+		$("#mapaRecaudacion").hide();
+		$("#mapaNumeroSalas").hide();
+	}
     </script>
-
+	
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <script type="text/javascript" src="cargarMapas.js"></script>    
     <link rel="stylesheet" type="text/css" href="css/style1.css" />
-    <!--<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css' />-->
+    <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   </head>
+  
+
   <body>
+
     <header>
 	    <div id="cabecera" style="background-color:#474747; color:#AA4646; width:100%; height: 15%;border:solid; text-align:center">
 		<h1 style="color:white">Visualización de datos masivos con D3.js</h1>
@@ -52,7 +42,7 @@
     <h1>Consulta toda la información pública del Cine en España en un mapa interactivo. Puedes ver la información por municipios y comunidades autónomas </h1>
     <ul class="ca-menu">
                     <li>
-                        <a href="#" id="primerMenu">
+                        <a href="NumeroEspectadores.html#mapaNumeroSalas" onclick="mainNSalas()"  >
                             <span class="ca-icon">A</span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Número de salas</h2>
@@ -61,7 +51,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="informacionPublicaCine.html#map">
+                        <a href="NumeroEspectadores.html#mapaEspectadores" onclick="mainNEspectadores()">
                             <span class="ca-icon">D</span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Número de espectadores</h2>
@@ -70,7 +60,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="NumeroEspectadores.html#mapaRecaudacion" onclick="mainRecaudacion()">
                             <span class="ca-icon">€</span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Recaudación</h2>
@@ -81,54 +71,24 @@
 
                 </ul>
     </div>
-    <div id="map" style="height:100%; border:solid;">
-
-    <!-- Include de la libreria JS de cartodb -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-
-    <script>
-      function main() { <!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
-        cartodb.createVis('map', 'https://carlos10.cartodb.com/api/v2/viz/71c0d1f0-82ec-11e5-bbbd-0e787de82d45/viz.json', {
-            shareable: false,
-            title: false,
-            description: true,
-            search: true,
-            tiles_loader: true,
-            center_lat: 37,
-            center_lon: 0,
-            zoom: 2
-        })
-        .done(function(vis, layers) {
-          // layer 0 is the base layer, layer 1 is cartodb layer
-          // setInteraction is disabled by default
-          //layer 0 es la capa base
-          //layer 1 es la capa de cartodb
-          layers[1].setInteraction(true);
-          layers[1].on('featureOver', function(e, latlng, pos, data) {
-            cartodb.log.log(e, latlng, pos, data);
-          });
-          // Trabajamos con el mapa nativo de la plataforma cartodb
-          var map = vis.getNativeMap();
-          // Aplicamos zoom al mapa en el document.ready
-           map.setZoom(5);
-
-          // map.panTo([50.5, 30.5]);
-        })
-        .error(function(err) {
-          console.log(err);
-        });
-      }
-      window.onload = main;
-  
-    </script>
-    </div>
+	<div id="mapaNumeroSalas" style="height:100%; border:solid;">
+	
+	</div>
+	
+    	<div id="mapaEspectadores" style="height:100%; border:solid;">
     
-    <div id="pie"  style="background-color:#474747; color:#AA4646; border:solid; text-align:center;" >
-    	<h1 style="color:white">Grado en ingeniería informática</h1>
-    	<img src="http://www.studyinspain.info/export/sites/studyinspain/.content/Imagenes/Logos/SedesFormacion/urjc.jpg_924116256.jpg" />
-    	<img src = "http://www.treselle.com/wp-content/uploads/freshizer/7f3e0728578b618dd848a6279a7564d4_d3.js-863-430-c.jpg" width="250px" height="92px" />
-    </div>
-    
+    	</div>
+	
+	<div id="mapaRecaudacion" style="height:100%; border:solid;">
+
+	</div>
+    <footer>
+	 <div id="pie"  style="background-color:#474747; color:#AA4646; border:solid; text-align:center;" >
+    		<h1 style="color:white">Grado en ingeniería informática</h1>
+    		<img src="http://www.studyinspain.info/export/sites/studyinspain/.content/Imagenes/Logos/SedesFormacion/urjc.jpg_924116256.jpg" />
+    		<img src = "http://www.treselle.com/wp-content/uploads/freshizer/7f3e0728578b618dd848a6279a7564d4_d3.js-863-430-c.jpg" width="250px" height="92px" />
+	 </div>
+    </footer>
 
   </body>
 </html>
