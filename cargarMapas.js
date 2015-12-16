@@ -1,5 +1,5 @@
-<!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios y permite por ajax guardar
-en variables las capas de los mapas extraidos de la plataforma CartoDB-->
+// <!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios y permite por ajax guardar
+// en variables las capas de los mapas extraidos de la plataforma CartoDB-->
 
 function mainNSalas() { 		
     $("#mapaRecaudacion").hide();
@@ -27,12 +27,12 @@ function mainNSalas() {
 
           // map.panTo([50.5, 30.5]);
         })
-        <!--.error(function(err) {
-          console.log(err);
-        }); -->
+        // <!--.error(function(err) {
+        //   console.log(err);
+        // }); -->
       }
   
-  function mainNEspectadores() { <!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
+  function mainNEspectadores() { //<!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
 		$("#mapaRecaudacion").hide();
 		$("#mapaNumeroSalas").hide();
 		$("#mapaEspectadores").show();
@@ -60,12 +60,12 @@ function mainNSalas() {
 
           // map.panTo([50.5, 30.5]);
         })
-        <!--.error(function(err) {
-          console.log(err);
-        }); -->
+        // <!--.error(function(err) {
+        //   console.log(err);
+        // }); -->
       }
 	  
-	        function mainRecaudacion() { <!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
+	        function mainRecaudacion() { //<!--la url incluida en createVis es la que se comparte desde cartoDB del mapa con los datos de los municipios -->
 	  $("#mapaEspectadores").hide();
 	  $("#mapaNumeroSalas").hide();
 	  $("#mapaRecaudacion").show();
@@ -92,12 +92,12 @@ function mainNSalas() {
            mapR.setZoom(5);
 
         })
-        <!--.error(function(err) {
-          console.log(err);
-        }); -->
+        // <!--.error(function(err) {
+        //   console.log(err);
+        // }); -->
       }
   
-  function cargaMapa(){ <!-- Funcion que permite crear una capa de manera dinamica a partir de una consulta SQL -->
+  function cargaMapa(){ //<!-- Funcion que permite crear una capa de manera dinamica a partir de una consulta SQL -->
 			layer.createSubLayer({
 			sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, codnut1, codnut2, codnut3, country, recaudacion, inspireid, nameunit, natcode,natlevel FROM ign_spanish_adm2_provinces_copy",
 			cartocss: '#ign_spanish_adm2_provinces_copy  [recaudacion>100000000] {   polygon-fill: #229A00;}'
